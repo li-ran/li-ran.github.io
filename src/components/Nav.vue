@@ -44,4 +44,9 @@ export default {
     ul
       border-right 1px solid green
       background-color #000
+    .el-menu-item
+      color #999
+
+    .el-menu-item.is-active
+      color: #409eff !important
 </style>

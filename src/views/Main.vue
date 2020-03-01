@@ -2,8 +2,8 @@
     <div class="box">
       <Header></Header>
       <div class="container">
-        <Nav @childen-msg="childernMsg" :homeToTab="this.$route.params.id"></Nav>
-        <Articles v-if="message==1" :toArticleChildren="articleBool" @fromArtilesChildren="fromArtilesChildren"></Articles>
+        <Nav @childen-msg="childernMsg" :homeToTab="message"></Nav>
+        <Articles v-if="message==1 && isRouterAlive" :toArticleChildren="articleBool" @changeNavBoolean="fromArtilesChildren"></Articles>
         <Notes v-if="message==2" :toChildren="message"></Notes>
         <Camera v-if="message==3" :toChildren="message"></Camera>
         <Movies v-if="message==4" :toChildren="message"></Movies>
@@ -21,6 +21,11 @@ import Camera from './Camera.vue'
 import Movies from './Movies.vue'
 export default {
   name: 'Main',
+  provide () {
+    return {
+      reload: this.reload
+    }
+  },
   components: {
     Header,
     Nav,
@@ -32,7 +37,8 @@ export default {
   data () {
     return {
       message: 1,
-      articleBool: false
+      articleBool: false,
+      isRouterAlive: true
     }
   },
   created: function () {
@@ -42,7 +48,6 @@ export default {
     childernMsg (msg) {
       this.message = msg
       this.articleBool = true
-      console.log(this.articleBool)
       this.$emit('toArticleChildren')
     },
     fromArtilesChildren (msgBool) {
@@ -50,7 +55,13 @@ export default {
       this.$emit('toArticleChildren')
     },
     getRouteParams () {
-      this.message = Number(this.$route.params.id)
+      this.message = this.$route.params.id || '1'
+    },
+    reload: function () {
+      this.isRouterAlive = false
+      this.$nextTick(function () {
+        this.isRouterAlive = true
+      })
     }
   }
 }

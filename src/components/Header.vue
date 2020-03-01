@@ -16,7 +16,7 @@
 export default {
   data () {
     return {
-      circleUrl: '../assets/logo.jpg'
+      circleUrl: './assets/logo.jpg'
     }
   }
 }

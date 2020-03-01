@@ -1,7 +1,10 @@
 var express = require('express')
 var router = express.Router()
 
-router.get('/a', function (req, res, nex) {
+router.get('/', function (req, res, nex) {
+  res.render('../dist/index')
+})
+router.get('/main', function (req, res, nex) {
   res.render('../dist/index')
 })
 

@@ -5,19 +5,11 @@ const path = require('path')
 var swig = require('swig')
 // 加载数据库模块
 var mongoose = require('mongoose')
+//加载bodyParser
+var bodyParser = require('body-parser')
 // 创建APP
 var app = express()
-// let history = require('connect-history-api-fallback')
 
-// 重定向到index.html
-// history({
-//   rewrites: [{
-//       from: /^\/dist\/.*$/,
-//       to: '/index.html'
-//     }]
-// });
-
-// app.use(history());
 app.all('*', function (req, res, next) {
   // 设为指定的域
   res.header('Access-Control-Allow-Origin', '*')
@@ -28,9 +20,9 @@ app.all('*', function (req, res, next) {
   res.header('X-Powered-By', ' 3.2.1')
   next()
 })
-
+app.use(bodyParser.urlencoded({extended:true}))
 // 设置静态文件托管
-// 当用户url是以/public开始，则直接返回__dirname + '/pulic'目录下文件
+// 当用户url是以/dist开始，则直接返回__dirname + '/dist'目录下文件
 app.use(express.static(path.join(__dirname, 'dist')))
 
 // 配置应用模块
@@ -50,11 +42,12 @@ app.set('view engine', 'html')
 swig.setDefaults({ cache: false })
 
 // 根据不同木块划分不同功能
-app.use('/admin', require('./server/routers/admin'))
+// app.use('/admin', require('./server/routers/admin'))
 // app.use('/api',require('./routers/api'));
-app.use('/', require('./server/routers/main'))
+app.use('/', require('./server/routers/main'));
+app.use('/articles', require('./server/routers/articles'));
 // 链接数据库
-mongoose.connect('mongodb://localhost:27017/blog', { useNewUrlParser: true }, function (err) {
+mongoose.connect('mongodb://localhost:27017/my_blog', { useNewUrlParser: true }, function (err) {
   if (err) {
     console.log('数据库连接失败')
   } else {

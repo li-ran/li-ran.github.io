@@ -21,7 +21,7 @@
               <div class="grid-content">
                 <div class="my-articles list-container">
                   <span>我的文章</span>
-                  <img alt="articles" src="../assets/5.jpg">
+                  <img alt="articles" src="../assets/works.jpg">
                 </div>
               </div>
           </router-link>
@@ -31,7 +31,7 @@
               <div class="grid-content">
                 <div class="learning-notes list-container">
                   <span>学习笔记</span>
-                  <img alt="learning notes" src="../assets/10.jpg">
+                  <img alt="learning notes" src="../assets/notes.gif">
                 </div>
               </div>
            </router-link>
@@ -41,7 +41,7 @@
               <div class="grid-content">
                 <div class="photograph-works list-container">
                   <span>摄影作品</span>
-                  <img alt="photograph" src="../assets/17.jpg">
+                  <img alt="photograph" src="../assets/photo.jpg">
                 </div>
               </div>
           </router-link>
@@ -51,7 +51,7 @@
               <div class="grid-content">
                 <div class="movie-recomm list-container">
                   <span>电影推荐</span>
-                  <img alt="movie recommendation" src="../assets/18.jpg">
+                  <img alt="movie recommendation" src="../assets/scema.jpg">
                 </div>
               </div>
           </router-link>

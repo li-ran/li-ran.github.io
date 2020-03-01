@@ -1,12 +1,12 @@
 <template>
    <div class="center">
-      <div class="catalog" v-show='details==1'>
-          <Swiper></Swiper>
+      <div class="catalog" v-if='details==1'>
+          <Swiper :data="data" @fromArticlesChildre="fromChildrenData"></Swiper>
           <el-card class="box-card">
-            <div @click="toDetails" v-for="o in 10" :key="o" class="text item">{{o + '、 '+'我的文章 ' + o }}</div>
+            <div @click="toDetails($event)" v-for="(item, index) in data" :key="item.id" ref="toDetails" :id="item._id" class="text item">{{(index+1) +"、 "}} {{item.title}}</div>
           </el-card>
       </div>
-      <ArticlesDetails v-show='details==0'></ArticlesDetails>
+      <ArticlesDetails v-if='details==0' :showDetails="currId"></ArticlesDetails>
     </div>
 </template>
 <script>
@@ -18,18 +18,47 @@ export default {
     Swiper,
     ArticlesDetails
   },
+  inject: ['reload'],
   props: ['toArticleChildren'],
   data: function () {
     return {
+      data: [],
       details: 1,
-      tabFlag: this.toArticleChildren
+      tabFlag: this.toArticleChildren,
+      currId: 0
     }
   },
+  mounted () {
+    this.getData()
+  },
   methods: {
-    toDetails () {
+    toDetails (e) {
+      this.currId = e.target.getAttribute('id')
       this.details = 0
-      this.$emit('fromArtilesChildren', false)
+      this.$emit('changeNavBoolean', false)
+    },
+    getData () {
+      var vm = this
+      $.ajax({
+        type: 'GET',
+        url: 'http://127.0.0.1:99/articles/outline',
+        data: '',
+        dataType: 'JSON',
+        success: function (data) {
+          vm.data = data.data
+          console.log(vm.data)
+        },
+        error: function (err) {
+          console.log(err)
+        }
+      })
+    },
+    fromChildrenData (id) {
+      this.currId = id
+      this.details = 0
+      this.$emit('changeNavBoolean', false)
     }
+
   },
   watch: {
     tabFlag (newVal) {
