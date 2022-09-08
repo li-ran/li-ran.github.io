@@ -19,7 +19,7 @@
     "express": "^4.17.1",
     "iconv-lite": "^0.5.1",
     "image-webpack-loader": "^6.0.0",
-    "mammoth": "^1.4.9",
+    "mammoth": "^1.5.1",
     "mongodb": "^3.5.3",
     "mongoose": "^5.9.2",
     "register-service-worker": "^1.6.2",
